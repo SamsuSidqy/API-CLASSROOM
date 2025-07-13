@@ -1,0 +1,20 @@
+{
+  "name": "apps",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "samsoe",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "luxon": "^3.7.1",
+    "multer": "^2.0.1",
+    "mysql2": "^3.14.1",
+    "socket.io": "^4.8.1",
+    "validator": "^13.15.15",
+    "winston": "^3.17.0"
+  }
+}
