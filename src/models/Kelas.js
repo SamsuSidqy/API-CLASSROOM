@@ -28,4 +28,53 @@ export default class Kelas{
 			return false;
 		}
 	}
+
+
+	async CheckKelasExists(kode){
+		try{
+			const [result] = await this.connect.query(
+				"SELECT * FROM kelas WHERE kode_kelas = ?",
+				[kode]
+			)
+			return result[0]
+		}catch(e){
+			console.log(e)
+			return null;
+		}
+	}
+
+	async CheckJoinedKelas(id_kelas,id_users){
+		try{
+			const [result] = await this.connect.query(
+				"SELECT * FROM joined_kelas WHERE id_kelas = ? AND id_users = ?",
+				[id_kelas,id_users]
+			)
+			const [result2] = await this.connect.query(
+				"SELECT * FROM kelas WHERE id_kelas = ? AND id_user_created = ?",
+				[id_kelas,id_users]
+			)
+			const bol = result[0] || result2[0]
+			return bol
+		}catch(e){
+			console.log(e)
+			return null;
+		}
+	}
+
+	async JoinedKelas(data){
+		try{
+			const [result] = await this.connect.execute(
+				"INSERT INTO joined_kelas (id_kelas,id_users,created_at) VALUES(?,?,?)",
+				[
+					data.id_kelas,
+					data.id_users,
+					WaktuTimestampCreatedat()
+				]
+			)
+			return true
+		}catch(e){
+			console.log(e)
+			return null
+		}
+	}
 }
