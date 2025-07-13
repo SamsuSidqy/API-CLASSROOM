@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jul 2025 pada 09.56
+-- Waktu pembuatan: 13 Jul 2025 pada 15.37
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.1.25
 
@@ -44,9 +44,16 @@ CREATE TABLE `joined_kelas` (
   `id_join` int(11) NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `id_users` int(11) NOT NULL,
-  `accepted` tinyint(1) NOT NULL,
+  `accepted` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `joined_kelas`
+--
+
+INSERT INTO `joined_kelas` (`id_join`, `id_kelas`, `id_users`, `accepted`, `created_at`) VALUES
+(8, 2, 16, 1, '2025-07-13 12:42:56');
 
 -- --------------------------------------------------------
 
@@ -64,6 +71,13 @@ CREATE TABLE `kelas` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `nama_kelas` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `kelas`
+--
+
+INSERT INTO `kelas` (`id_kelas`, `deskripsi_kelas`, `id_user_created`, `kode_kelas`, `mata_pelajaran`, `nomor_ruangan`, `created_at`, `nama_kelas`) VALUES
+(2, '', 15, '5JNUJQ', 'RPL', NULL, '2025-07-13 11:39:14', 'RR');
 
 -- --------------------------------------------------------
 
@@ -116,7 +130,7 @@ CREATE TABLE `message_chat` (
 CREATE TABLE `tugas` (
   `id_tugas` int(11) NOT NULL,
   `deskripsi` text NOT NULL,
-  `tenggat_waktu` varchar(255) DEFAULT NULL,
+  `tenggat_waktu` timestamp NULL DEFAULT NULL,
   `type` enum('Tugas','Pengumuman') NOT NULL,
   `id_kelas` int(11) NOT NULL,
   `judul` varchar(50) NOT NULL,
@@ -145,7 +159,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_users`, `username`, `email`, `password`, `token`, `refresh_token`, `profile`, `created_at`) VALUES
-(14, 'Joni', 'joni@joni.com', '$2b$10$Eu7lyXMsr.rTNQpiCNR7r.6sO2/2smrvlniUSkr26b/CYxtj/hft6', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNCwidXNlcm5hbWUiOiJKb25pIiwiZW1haWwiOiJqb25pQGpvbmkuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkRXU3bHlYTXNyLnJUTlFwaUNOUjdyLjZzTzIvMnNtcnZsbmlVU2tyMjZiL0NZeHRqL2hmdDYiLCJ0b2tlbiI6bnVsbCwicmVmcmVzaF90b2tlbiI6bnVsbCwicHJvZmlsZSI6bnVsbH0sImlhdCI6MTc1MjMzMzkwOCwiZXhwIjoxNzUyMzU1NTA4fQ.0Sx6wILMFAIBWWu-6YlBhPlkMFeJ7U9uon4kA8Nq_ig', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNCwidXNlcm5hbWUiOiJKb25pIiwiZW1haWwiOiJqb25pQGpvbmkuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkRXU3bHlYTXNyLnJUTlFwaUNOUjdyLjZzTzIvMnNtcnZsbmlVU2tyMjZiL0NZeHRqL2hmdDYiLCJ0b2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUprWVhSaElqcDdJbWxrWDNWelpYSnpJam94TkN3aWRYTmxjbTVoYldVaU9pSktiMjVwSWl3aVpXMWhhV3dpT2lKcWIyNXBRR3B2Ym1rdVkyOXRJaXdpY0dGemMzZHZjbVFpT2lJa01tSWtNVEFrUlhVM2JIbFlUWE55TG5KVVRsRndhVU5PVWpkeUxqWnpUekl2TW5OdGNuWnNibWxWVTJ0eU1qWmlMME5aZUhScUwyaG1kRFlpTENKMGIydGxiaUk2Ym5Wc2JDd2ljbVZtY21WemFGOTBiMnRsYmlJNmJuVnNiQ3dpY0hKdlptbHNaU0k2Ym5Wc2JIMHNJbWxoZENJNk1UYzFNak16TXprd09Dd2laWGh3SWpveE56VXlNelUxTlRBNGZRLjBTeDZ3SUxNRkFJQldXdS02WWxCaFBsa01GZUo3VTl1b240a0E4TnFfaWciLCJyZWZyZXNoX3Rva2VuIjpudWxsLCJwcm9maWxlIjpudWxsfSwiaWF0IjoxNzUyMzMzOTA4LCJleHAiOjE3NTQ5MjU5MDh9.R_92YxPXFCNurbd4U8fNYJAgFOt6JH849qo53jeKdK8', NULL, '2025-07-12 15:25:08');
+(15, 'Joni', 'joni@joni.com', '$2b$10$0sCisiRkGN71BzglgYRiv.eOpnZOXQCG/QqhBLaNhutPQBBwslGg2', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNSwidXNlcm5hbWUiOiJKb25pIiwiZW1haWwiOiJqb25pQGpvbmkuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkMHNDaXNpUmtHTjcxQnpnbGdZUml2LmVPcG5aT1hRQ0cvUXFoQkxhTmh1dFBRQkJ3c2xHZzIiLCJ0b2tlbiI6bnVsbCwicmVmcmVzaF90b2tlbiI6bnVsbCwicHJvZmlsZSI6bnVsbH0sImlhdCI6MTc1MjQwNjQ5MSwiZXhwIjoxNzUyNDI4MDkxfQ.p9YC_0LhHOGX-osTiVBfIjpoKTqzsXFgMPUHZ1SYv0E', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNSwidXNlcm5hbWUiOiJKb25pIiwiZW1haWwiOiJqb25pQGpvbmkuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkMHNDaXNpUmtHTjcxQnpnbGdZUml2LmVPcG5aT1hRQ0cvUXFoQkxhTmh1dFBRQkJ3c2xHZzIiLCJ0b2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUprWVhSaElqcDdJbWxrWDNWelpYSnpJam94TlN3aWRYTmxjbTVoYldVaU9pSktiMjVwSWl3aVpXMWhhV3dpT2lKcWIyNXBRR3B2Ym1rdVkyOXRJaXdpY0dGemMzZHZjbVFpT2lJa01tSWtNVEFrTUhORGFYTnBVbXRIVGpjeFFucG5iR2RaVW1sMkxtVlBjRzVhVDFoUlEwY3ZVWEZvUWt4aFRtaDFkRkJSUWtKM2MyeEhaeklpTENKMGIydGxiaUk2Ym5Wc2JDd2ljbVZtY21WemFGOTBiMnRsYmlJNmJuVnNiQ3dpY0hKdlptbHNaU0k2Ym5Wc2JIMHNJbWxoZENJNk1UYzFNalF3TmpRNU1Td2laWGh3SWpveE56VXlOREk0TURreGZRLnA5WUNfMExoSE9HWC1vc1RpVkJmSWpwb0tUcXpzWEZnTVBVSFoxU1l2MEUiLCJyZWZyZXNoX3Rva2VuIjpudWxsLCJwcm9maWxlIjpudWxsfSwiaWF0IjoxNzUyNDA2NDkxLCJleHAiOjE3NTQ5OTg0OTF9.NSZo8QBi6XuunKnbCIPhvhHVlbH3oEQklvUN9zSpj1M', NULL, '2025-07-13 11:34:51'),
+(16, 'Jojo', 'jojo@jojo.com', '$2b$10$w5tPZ.aMu8Rjkz6xa.XXi.5wlEBcMmiwIxY2rDYcBLVGUyjFSxX7O', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNiwidXNlcm5hbWUiOiJKb2pvIiwiZW1haWwiOiJqb2pvQGpvam8uY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkdzV0UFouYU11OFJqa3o2eGEuWFhpLjV3bEVCY01taXdJeFkyckRZY0JMVkdVeWpGU3hYN08iLCJ0b2tlbiI6bnVsbCwicmVmcmVzaF90b2tlbiI6bnVsbCwicHJvZmlsZSI6bnVsbH0sImlhdCI6MTc1MjQwOTQ2MCwiZXhwIjoxNzUyNDMxMDYwfQ.32F9FWSuAhm1agT2WmiiLZgjRzI4M2RcAlh6nnu1UNM', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNiwidXNlcm5hbWUiOiJKb2pvIiwiZW1haWwiOiJqb2pvQGpvam8uY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkdzV0UFouYU11OFJqa3o2eGEuWFhpLjV3bEVCY01taXdJeFkyckRZY0JMVkdVeWpGU3hYN08iLCJ0b2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUprWVhSaElqcDdJbWxrWDNWelpYSnpJam94Tml3aWRYTmxjbTVoYldVaU9pSktiMnB2SWl3aVpXMWhhV3dpT2lKcWIycHZRR3B2YW04dVkyOXRJaXdpY0dGemMzZHZjbVFpT2lJa01tSWtNVEFrZHpWMFVGb3VZVTExT0ZKcWEzbzJlR0V1V0ZocExqVjNiRVZDWTAxdGFYZEplRmt5Y2tSWlkwSk1Wa2RWZVdwR1UzaFlOMDhpTENKMGIydGxiaUk2Ym5Wc2JDd2ljbVZtY21WemFGOTBiMnRsYmlJNmJuVnNiQ3dpY0hKdlptbHNaU0k2Ym5Wc2JIMHNJbWxoZENJNk1UYzFNalF3T1RRMk1Dd2laWGh3SWpveE56VXlORE14TURZd2ZRLjMyRjlGV1N1QWhtMWFnVDJXbWlpTFpnalJ6STRNMlJjQWxoNm5udTFVTk0iLCJyZWZyZXNoX3Rva2VuIjpudWxsLCJwcm9maWxlIjpudWxsfSwiaWF0IjoxNzUyNDA5NDYwLCJleHAiOjE3NTUwMDE0NjB9.M7jc_uBr0h_mTRE4RE9jP-Qaitf61WvgQ-4jWZUdDNo', NULL, '2025-07-13 12:24:20');
 
 --
 -- Indexes for dumped tables
@@ -208,13 +223,13 @@ ALTER TABLE `assigsment`
 -- AUTO_INCREMENT untuk tabel `joined_kelas`
 --
 ALTER TABLE `joined_kelas`
-  MODIFY `id_join` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_join` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `lampiran_assigsment`
@@ -238,7 +253,7 @@ ALTER TABLE `tugas`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
