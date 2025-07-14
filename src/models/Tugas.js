@@ -20,5 +20,33 @@ export default class Tugas{
 			return false
 		}
 	}
+
+	async InsertTugas(data,kelas,files){
+		try{
+			await this.connect.beginTransaction()
+			const [result] = await this.connect.execute(
+				"INSERT INTO tugas (deskripsi,tenggat_waktu,id_kelas,judul) VALUES(?,?,?,?)",
+				[data.deskripsi,data.tenggat_waktu,kelas.id_kelas,data.judul]
+			)
+			const id_tugas = result.insertId;
+
+			if (files && files.length > 0) {
+				const lampiranQ = "INSERT INTO lampiran_tugas (id_tugas,name_file,created_at,updated_at) VALUES ?"
+				const lampiranData = files.map(file => [
+					id_tugas,
+					file.filename,
+					WaktuTimestampCreatedat(),
+					WaktuTimestampCreatedat()
+				])
+				await this.connect.query(lampiranQ, [lampiranData])
+			}
+			await this.connect.commit()
+			return true
+		}catch(er){
+			console.log(er)
+			await this.connect.rollback();
+			return false
+		}
+	}
 	
 }

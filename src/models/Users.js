@@ -21,13 +21,12 @@ export default class PenggunaUsers{
 	async InsertData(data){
 		try{
 			const [result] = await this.connect.execute(
-				`INSERT INTO users (username,email,password,token,refresh_token,profile,created_at)
-				VALUES(?,?,?,?,?,?,?)`,
+				`INSERT INTO users (username,email,password,refresh_token,profile,created_at)
+				VALUES(?,?,?,?,?,?)`,
 				[
 					data.username,
 					data.email,
 					await this.HashingPassword(data.password),
-					null,
 					null,
 					null,
 					WaktuTimestampCreatedat()
@@ -58,7 +57,7 @@ export default class PenggunaUsers{
 	async ResultFirstData(data){
 		try{
 			const [result] = await this.connect.query(
-				"SELECT id_users,username,email,password,token,refresh_token,profile FROM users WHERE email = ? OR username = ?",
+				"SELECT id_users,username,email,password,refresh_token,profile FROM users WHERE email = ? OR username = ?",
 				[data,data]
 			)
 			return result[0]
@@ -71,8 +70,8 @@ export default class PenggunaUsers{
 	async LoginUpdateToken(data){
 		try{
 			const [result] = await this.connect.execute(
-				"UPDATE users SET token = ?, refresh_token = ? WHERE id_users = ?",
-				[data.token,data.refresh_token,data.id_users]
+				"UPDATE users SET refresh_token = ? WHERE id_users = ?",
+				[data.refresh_token,data.id_users]
 			)
 			return true
 		}catch(err){

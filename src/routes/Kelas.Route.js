@@ -19,6 +19,6 @@ const UploadControl = multer({ storage: storage });
 routeKelas.use(express.json())
 routeKelas.post('/kelas',CreateKelas)
 routeKelas.post("/join",JoinKelasControl)
-routeKelas.post("/tugas",UploadControl.array('files',5),KelasTugasControl)
+routeKelas.post("/tugas",UploadControl.array('lampiran',5),KelasTugasControl)
 
 export default routeKelas

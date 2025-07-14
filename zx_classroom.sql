@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jul 2025 pada 15.37
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.1.25
+-- Generation Time: Jul 14, 2025 at 06:13 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `assigsment`
+-- Table structure for table `assigsment`
 --
 
 CREATE TABLE `assigsment` (
@@ -37,7 +37,7 @@ CREATE TABLE `assigsment` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `joined_kelas`
+-- Table structure for table `joined_kelas`
 --
 
 CREATE TABLE `joined_kelas` (
@@ -49,16 +49,16 @@ CREATE TABLE `joined_kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `joined_kelas`
+-- Dumping data for table `joined_kelas`
 --
 
 INSERT INTO `joined_kelas` (`id_join`, `id_kelas`, `id_users`, `accepted`, `created_at`) VALUES
-(8, 2, 16, 1, '2025-07-13 12:42:56');
+(9, 3, 19, 1, '2025-07-14 03:11:03');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kelas`
+-- Table structure for table `kelas`
 --
 
 CREATE TABLE `kelas` (
@@ -73,16 +73,16 @@ CREATE TABLE `kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `kelas`
+-- Dumping data for table `kelas`
 --
 
 INSERT INTO `kelas` (`id_kelas`, `deskripsi_kelas`, `id_user_created`, `kode_kelas`, `mata_pelajaran`, `nomor_ruangan`, `created_at`, `nama_kelas`) VALUES
-(2, '', 15, '5JNUJQ', 'RPL', NULL, '2025-07-13 11:39:14', 'RR');
+(3, '', 18, 'MEQQO2', 'RPL', NULL, '2025-07-14 03:07:29', 'Perangkat Lunak Lanjut');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `lampiran_assigsment`
+-- Table structure for table `lampiran_assigsment`
 --
 
 CREATE TABLE `lampiran_assigsment` (
@@ -96,7 +96,7 @@ CREATE TABLE `lampiran_assigsment` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `lampiran_tugas`
+-- Table structure for table `lampiran_tugas`
 --
 
 CREATE TABLE `lampiran_tugas` (
@@ -110,7 +110,7 @@ CREATE TABLE `lampiran_tugas` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `message_chat`
+-- Table structure for table `message_chat`
 --
 
 CREATE TABLE `message_chat` (
@@ -124,7 +124,7 @@ CREATE TABLE `message_chat` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tugas`
+-- Table structure for table `tugas`
 --
 
 CREATE TABLE `tugas` (
@@ -140,7 +140,7 @@ CREATE TABLE `tugas` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -148,112 +148,111 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` text NOT NULL,
-  `token` text DEFAULT NULL,
   `refresh_token` text DEFAULT NULL,
   `profile` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_users`, `username`, `email`, `password`, `token`, `refresh_token`, `profile`, `created_at`) VALUES
-(15, 'Joni', 'joni@joni.com', '$2b$10$0sCisiRkGN71BzglgYRiv.eOpnZOXQCG/QqhBLaNhutPQBBwslGg2', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNSwidXNlcm5hbWUiOiJKb25pIiwiZW1haWwiOiJqb25pQGpvbmkuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkMHNDaXNpUmtHTjcxQnpnbGdZUml2LmVPcG5aT1hRQ0cvUXFoQkxhTmh1dFBRQkJ3c2xHZzIiLCJ0b2tlbiI6bnVsbCwicmVmcmVzaF90b2tlbiI6bnVsbCwicHJvZmlsZSI6bnVsbH0sImlhdCI6MTc1MjQwNjQ5MSwiZXhwIjoxNzUyNDI4MDkxfQ.p9YC_0LhHOGX-osTiVBfIjpoKTqzsXFgMPUHZ1SYv0E', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNSwidXNlcm5hbWUiOiJKb25pIiwiZW1haWwiOiJqb25pQGpvbmkuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkMHNDaXNpUmtHTjcxQnpnbGdZUml2LmVPcG5aT1hRQ0cvUXFoQkxhTmh1dFBRQkJ3c2xHZzIiLCJ0b2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUprWVhSaElqcDdJbWxrWDNWelpYSnpJam94TlN3aWRYTmxjbTVoYldVaU9pSktiMjVwSWl3aVpXMWhhV3dpT2lKcWIyNXBRR3B2Ym1rdVkyOXRJaXdpY0dGemMzZHZjbVFpT2lJa01tSWtNVEFrTUhORGFYTnBVbXRIVGpjeFFucG5iR2RaVW1sMkxtVlBjRzVhVDFoUlEwY3ZVWEZvUWt4aFRtaDFkRkJSUWtKM2MyeEhaeklpTENKMGIydGxiaUk2Ym5Wc2JDd2ljbVZtY21WemFGOTBiMnRsYmlJNmJuVnNiQ3dpY0hKdlptbHNaU0k2Ym5Wc2JIMHNJbWxoZENJNk1UYzFNalF3TmpRNU1Td2laWGh3SWpveE56VXlOREk0TURreGZRLnA5WUNfMExoSE9HWC1vc1RpVkJmSWpwb0tUcXpzWEZnTVBVSFoxU1l2MEUiLCJyZWZyZXNoX3Rva2VuIjpudWxsLCJwcm9maWxlIjpudWxsfSwiaWF0IjoxNzUyNDA2NDkxLCJleHAiOjE3NTQ5OTg0OTF9.NSZo8QBi6XuunKnbCIPhvhHVlbH3oEQklvUN9zSpj1M', NULL, '2025-07-13 11:34:51'),
-(16, 'Jojo', 'jojo@jojo.com', '$2b$10$w5tPZ.aMu8Rjkz6xa.XXi.5wlEBcMmiwIxY2rDYcBLVGUyjFSxX7O', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNiwidXNlcm5hbWUiOiJKb2pvIiwiZW1haWwiOiJqb2pvQGpvam8uY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkdzV0UFouYU11OFJqa3o2eGEuWFhpLjV3bEVCY01taXdJeFkyckRZY0JMVkdVeWpGU3hYN08iLCJ0b2tlbiI6bnVsbCwicmVmcmVzaF90b2tlbiI6bnVsbCwicHJvZmlsZSI6bnVsbH0sImlhdCI6MTc1MjQwOTQ2MCwiZXhwIjoxNzUyNDMxMDYwfQ.32F9FWSuAhm1agT2WmiiLZgjRzI4M2RcAlh6nnu1UNM', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxNiwidXNlcm5hbWUiOiJKb2pvIiwiZW1haWwiOiJqb2pvQGpvam8uY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkdzV0UFouYU11OFJqa3o2eGEuWFhpLjV3bEVCY01taXdJeFkyckRZY0JMVkdVeWpGU3hYN08iLCJ0b2tlbiI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUprWVhSaElqcDdJbWxrWDNWelpYSnpJam94Tml3aWRYTmxjbTVoYldVaU9pSktiMnB2SWl3aVpXMWhhV3dpT2lKcWIycHZRR3B2YW04dVkyOXRJaXdpY0dGemMzZHZjbVFpT2lJa01tSWtNVEFrZHpWMFVGb3VZVTExT0ZKcWEzbzJlR0V1V0ZocExqVjNiRVZDWTAxdGFYZEplRmt5Y2tSWlkwSk1Wa2RWZVdwR1UzaFlOMDhpTENKMGIydGxiaUk2Ym5Wc2JDd2ljbVZtY21WemFGOTBiMnRsYmlJNmJuVnNiQ3dpY0hKdlptbHNaU0k2Ym5Wc2JIMHNJbWxoZENJNk1UYzFNalF3T1RRMk1Dd2laWGh3SWpveE56VXlORE14TURZd2ZRLjMyRjlGV1N1QWhtMWFnVDJXbWlpTFpnalJ6STRNMlJjQWxoNm5udTFVTk0iLCJyZWZyZXNoX3Rva2VuIjpudWxsLCJwcm9maWxlIjpudWxsfSwiaWF0IjoxNzUyNDA5NDYwLCJleHAiOjE3NTUwMDE0NjB9.M7jc_uBr0h_mTRE4RE9jP-Qaitf61WvgQ-4jWZUdDNo', NULL, '2025-07-13 12:24:20');
+INSERT INTO `users` (`id_users`, `username`, `email`, `password`, `refresh_token`, `profile`, `created_at`) VALUES
+(18, 'abi', 'abi@abi.com', '$2b$10$4B8dv/UJW4BQdLMTWrh/ru66in8KHErbm6ieiSOuBudOo929MNR5a', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxOCwidXNlcm5hbWUiOiJhYmkiLCJlbWFpbCI6ImFiaUBhYmkuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkNEI4ZHYvVUpXNEJRZExNVFdyaC9ydTY2aW44S0hFcmJtNmllaVNPdUJ1ZE9vOTI5TU5SNWEiLCJyZWZyZXNoX3Rva2VuIjpudWxsLCJwcm9maWxlIjpudWxsfSwiaWF0IjoxNzUyNDYyMzc5LCJleHAiOjE3NTUwNTQzNzl9.jwXO6Mzb3I_gCVvJZsiVC062AJpCNCIqigRCFL_1szs', NULL, '2025-07-14 03:06:19'),
+(19, 'doni', 'doni@doni.com', '$2b$10$wuR2VZDiLa4Wd3vYJq3EYeMI/uyZZvx0BpWZbu8/GEc0iuTlrGPSq', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkX3VzZXJzIjoxOSwidXNlcm5hbWUiOiJkb25pIiwiZW1haWwiOiJkb25pQGRvbmkuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkd3VSMlZaRGlMYTRXZDN2WUpxM0VZZU1JL3V5Wlp2eDBCcFdaYnU4L0dFYzBpdVRsckdQU3EiLCJyZWZyZXNoX3Rva2VuIjpudWxsLCJwcm9maWxlIjpudWxsfSwiaWF0IjoxNzUyNDYyNTg0LCJleHAiOjE3NTUwNTQ1ODR9.zOd4OsSWVwbUb9_AxfNgeWp4V-DRyv-7uOQ9B6DVYvU', NULL, '2025-07-14 03:09:44');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `assigsment`
+-- Indexes for table `assigsment`
 --
 ALTER TABLE `assigsment`
   ADD PRIMARY KEY (`id_assigsment`);
 
 --
--- Indeks untuk tabel `joined_kelas`
+-- Indexes for table `joined_kelas`
 --
 ALTER TABLE `joined_kelas`
   ADD PRIMARY KEY (`id_join`);
 
 --
--- Indeks untuk tabel `kelas`
+-- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`),
   ADD UNIQUE KEY `kode_kelas` (`kode_kelas`);
 
 --
--- Indeks untuk tabel `lampiran_assigsment`
+-- Indexes for table `lampiran_assigsment`
 --
 ALTER TABLE `lampiran_assigsment`
   ADD PRIMARY KEY (`id_lampiran_assigsment`);
 
 --
--- Indeks untuk tabel `lampiran_tugas`
+-- Indexes for table `lampiran_tugas`
 --
 ALTER TABLE `lampiran_tugas`
   ADD PRIMARY KEY (`id_lampiran_tugas`);
 
 --
--- Indeks untuk tabel `tugas`
+-- Indexes for table `tugas`
 --
 ALTER TABLE `tugas`
   ADD PRIMARY KEY (`id_tugas`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_users`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `assigsment`
+-- AUTO_INCREMENT for table `assigsment`
 --
 ALTER TABLE `assigsment`
   MODIFY `id_assigsment` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `joined_kelas`
+-- AUTO_INCREMENT for table `joined_kelas`
 --
 ALTER TABLE `joined_kelas`
-  MODIFY `id_join` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_join` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT untuk tabel `kelas`
+-- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `lampiran_assigsment`
+-- AUTO_INCREMENT for table `lampiran_assigsment`
 --
 ALTER TABLE `lampiran_assigsment`
   MODIFY `id_lampiran_assigsment` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `lampiran_tugas`
+-- AUTO_INCREMENT for table `lampiran_tugas`
 --
 ALTER TABLE `lampiran_tugas`
-  MODIFY `id_lampiran_tugas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_lampiran_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tugas`
+-- AUTO_INCREMENT for table `tugas`
 --
 ALTER TABLE `tugas`
-  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

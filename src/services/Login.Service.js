@@ -19,14 +19,14 @@ export default async function LoginService(data) {
 	if (!isPasswordValid) throw new RequestError("Username Or Password Invalid", 400);
 
 	const needsNewToken =
-		!result.token || !result.refresh_token || !(await VerifyToken(result.refresh_token));
+		!result.refresh_token || !(await VerifyToken(result.refresh_token));
 
 	if (needsNewToken) {
-		result.token = await GenerateToken(result);
-		result.refresh_token = await RefreshToken(result);
+		const token = await GenerateToken(result)		
+		result['refresh_token'] = await RefreshToken(result);
 		const updated = await User.LoginUpdateToken(result);
+		result['token'] = token;
 		if (!updated) throw new RequestError("Login Failed", 400);
 	}
-
 	return result;
 }
