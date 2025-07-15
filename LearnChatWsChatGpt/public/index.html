@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebSocket Chat with Rooms</title>
+  <style>
+    #users {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-top: 10px;
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Chat Room</h2>
+  <input id="room" placeholder="Nama Room" />
+  <input id="name" placeholder="Nama Anda" />
+  <button onclick="joinRoom()">Gabung Room</button>
+
+  <div id="chat" style="margin-top: 20px; border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: scroll;"></div>
+  <input id="message" type="text" placeholder="Tulis pesan..." />
+  <button onclick="sendMessage()">Kirim</button>
+
+  <h3>👥 Pengguna Online</h3>
+  <div id="users"></div>
+
+  <script>
+    let socket;
+
+    function joinRoom() {
+      const room = document.getElementById('room').value;
+      const name = document.getElementById('name').value;
+      if (!room || !name) {
+        alert('Isi nama dan room!');
+        return;
+      }
+
+      socket = new WebSocket('ws://localhost:3000');
+
+      socket.onopen = () => {
+        socket.send(JSON.stringify({ type: 'join', room, name }));
+      };
+
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const chat = document.getElementById('chat');
+
+        if (data.type === 'message') {
+          const msg = document.createElement('div');
+          msg.textContent = data.text;
+          chat.appendChild(msg);
+          chat.scrollTop = chat.scrollHeight;
+        }
+
+        if (data.type === 'users') {
+          const usersDiv = document.getElementById('users');
+          usersDiv.innerHTML = '';
+          data.users.forEach(u => {
+            const userEl = document.createElement('div');
+            userEl.textContent = `🟢 ${u}`;
+            usersDiv.appendChild(userEl);
+          });
+        }
+      };
+    }
+
+    function sendMessage() {
+      const message = document.getElementById('message').value;
+      if (socket && message) {
+        socket.send(JSON.stringify({
+          type: 'message',
+          text: message
+        }));
+        document.getElementById('message').value = '';
+      }
+    }
+  </script>
+</body>
+</html>
