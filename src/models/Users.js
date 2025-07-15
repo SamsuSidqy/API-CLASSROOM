@@ -66,18 +66,28 @@ export default class PenggunaUsers{
 			return null
 		}
 	}
-
-	async LoginUpdateToken(data){
+	async LoginUpdateToken(data,token){
 		try{
-			const [result] = await this.connect.execute(
-				"UPDATE users SET refresh_token = ? WHERE id_users = ?",
-				[data.refresh_token,data.id_users]
+			await this.connect.beginTransaction()
+
+			const [user] = await this.connect.query(
+				"SELECT * FROM users WHERE username = ? OR email = ?",
+				[data,data]
 			)
+			const id_users = user[0].id_users
+
+			const [result] = await this.connect.query(
+				"UPDATE users SET refresh_token = ? WHERE id_users = ?",
+				[token,id_users]
+			)
+			await this.connect.commit()
 			return true
 		}catch(err){
+			await this.connect.rollback()
 			console.log(err)
 			return false
 		}
 	}
+
 
 }

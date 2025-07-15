@@ -1,5 +1,5 @@
 import Dbconnection from '../config/database.js';
-import {WaktuTimestampCreatedat} from '../utils/Times.js'
+import {WaktuTimestampCreatedat, WaktuTimestampCreatedatSQLCompare} from '../utils/Times.js'
 
 export default class Assigsment{
 	async init() {
@@ -28,8 +28,8 @@ export default class Assigsment{
 
 			await this.connect.beginTransaction()
 			const [asigsment] = await this.connect.query(
-				"INSERT INTO assigsment (id_users,kode_kelas) VALUES(?,?)",
-				[users.id_users,data.kode_kelas]
+				"INSERT INTO assigsment (id_users,kode_kelas,id_tugas) VALUES(?,?,?)",
+				[users.id_users,data.kode_kelas,data.id_tugas]
 			)
 			const id_asigsment = asigsment.insertId;
 			if (files && files.length > 0) {
@@ -55,17 +55,39 @@ export default class Assigsment{
 	async CheckAsigsment(data,users){
 		try{
 			const [results] = await this.connect.query(
-			"SELECT * FROM assigsment WHERE kode_kelas = ? AND id_users = ?",
+			"SELECT * FROM assigsment WHERE kode_kelas = ? AND id_users = ? AND id_tugas = ?",
 			[
 				data.kode_kelas,
-				users.id_users
+				users.id_users,
+				data.id_tugas
 			]
 			)
 			return results.length > 0
 		}catch(er){
+			console.log(er)
 			return false
 		}
 	}
 
-	
+	async CheckAssigsmentExpired(data){
+		try{
+			const [results] = await this.connect.query(
+				"SELECT * FROM tugas WHERE id_tugas = ? AND tenggat_waktu IS NOT NULL",
+				[
+					data.id_tugas,				
+				]
+			)
+
+			if(results.length > 0){
+				if (results[0].tenggat_waktu > WaktuTimestampCreatedatSQLCompare()) {
+					return true
+				}else{
+					return false
+				}
+			}			
+			return true
+		}catch(er){
+			return false
+		}
+	}
 }

@@ -6,7 +6,7 @@ import Assigsment from '../models/Assigsment.js'
 export default async function RequestCreateAssigsment(data,file,users){
 	let message = {}
 	let status = false
-	let Fields = ['kode_kelas']
+	let Fields = ['kode_kelas','id_tugas']
 
     const tugas = new Tugas()
     const asigs = new Assigsment()

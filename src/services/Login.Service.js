@@ -20,13 +20,21 @@ export default async function LoginService(data) {
 
 	const needsNewToken =
 		!result.refresh_token || !(await VerifyToken(result.refresh_token));
+		
+	const mainData = {
+		id_users:result['id_users'],
+		username:result['username']
+	}
 
-	if (needsNewToken) {
-		const token = await GenerateToken(result)		
-		result['refresh_token'] = await RefreshToken(result);
-		const updated = await User.LoginUpdateToken(result);
+	const token = await GenerateToken(mainData)		
+	const refresh_token = await RefreshToken(mainData);	
+	if (needsNewToken) {		
+		result['refresh_token'] = refresh_token
+		const updated = await User.LoginUpdateToken(data.username,refresh_token);
 		result['token'] = token;
 		if (!updated) throw new RequestError("Login Failed", 400);
+	}else{
+		result['token'] = token;
 	}
 	return result;
 }

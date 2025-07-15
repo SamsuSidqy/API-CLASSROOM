@@ -21,6 +21,8 @@ export default class Tugas{
 		}
 	}
 
+	
+
 	async InsertTugas(data,kelas,files){
 		try{
 			await this.connect.beginTransaction()
