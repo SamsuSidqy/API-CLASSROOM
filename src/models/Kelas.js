@@ -77,4 +77,17 @@ export default class Kelas{
 			return null
 		}
 	}
+
+	async ListKelas(users){
+		try{
+			const [results] = await this.connect.query(
+			"SELECT kelas.mata_pelajaran, kelas.id_kelas, kelas.kode_kelas, kelas.nomor_ruangan, kelas.nama_kelas, kelas.created_at, IF(kelas.id_user_created = ? ,true,false) AS teacher FROM kelas LEFT JOIN joined_kelas ON joined_kelas.id_kelas = kelas.id_kelas WHERE joined_kelas.id_users = ? OR kelas.id_user_created = ?",
+			[users.id_users,users.id_users,users.id_users]
+			)
+			return results
+		}catch(er){
+			console.log(er)
+			return []
+		}
+	}
 }
