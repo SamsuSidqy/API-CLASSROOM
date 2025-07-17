@@ -21,7 +21,7 @@ export default class Kelas{
 					data.id_user_created
 				]
 			)
-			return true
+			return result
 
 		}catch(er){
 			console.log(er)

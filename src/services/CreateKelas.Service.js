@@ -8,11 +8,11 @@ export default async function CreateKelasService(data,payload){
 	data['id_user_created'] = payload.id_users
 	const kelas = new Kelas()
 	await kelas.init()
-	const result = kelas.InsertKelas(data)
+	const result = await kelas.InsertKelas(data)
 	if (result) {
 		return {
 			status:200,
-			kelas:data['kode_kelas']
+			kelas:result.insertId 
 		}
 	}else{
 		throw new RequestError("Failed Create Kelas",501)

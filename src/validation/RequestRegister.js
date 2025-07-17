@@ -33,6 +33,13 @@ export default async function RequestRegister(data){
     	}
     }
 
+    const resultUsername = await User.ChecData(data.username,'username')
+    if (resultUsername) {
+    	return{
+    		status:false,
+    		message:"Username Already Use"
+    	}
+    }
 
 	return{
 		status:true,

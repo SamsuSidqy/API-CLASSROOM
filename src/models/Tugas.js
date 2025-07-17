@@ -91,5 +91,31 @@ export default class Tugas{
 			return []
 		}
 	}
+
+	async DetailTugas(users,id_tugas){
+		try{
+			const [results] = await this.connect.query(
+			`SELECT
+				tugas.id_tugas,
+			    tugas.deskripsi,
+			    tugas.tenggat_waktu,
+			    tugas.type,
+			    tugas.id_kelas,
+			    tugas.judul,
+			    tugas.created_at,
+			    GROUP_CONCAT(lampiran_tugas.name_file SEPARATOR ",") as lampiran
+			FROM tugas
+			LEFT JOIN kelas ON kelas.id_kelas = tugas.id_kelas
+			LEFT JOIN lampiran_tugas ON lampiran_tugas.id_tugas = tugas.id_tugas
+			LEFT JOIN joined_kelas ON joined_kelas.id_kelas = kelas.id_kelas
+			WHERE joined_kelas.id_users = ? OR kelas.id_user_created = ? AND tugas.id_tugas = ?`,
+			[users.id_users,users.id_users,id_tugas]
+			)
+			return results
+		}catch(er){
+			console.log(er)
+			return false
+		}
+	}
 	
 }

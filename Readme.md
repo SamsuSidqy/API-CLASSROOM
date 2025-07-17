@@ -151,3 +151,195 @@
 
 <!-- And Something Else .. -->
 ```
+
+
+#### ListKelas
+
+```http
+  GET /kelas
+```
+
+
+
+| Header | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Authorization` | `Bearer` | **Required**. [Token Refresh] |
+
+*Response Success*
+```json
+{
+    "status": 200,
+    "data":[
+        {
+            "nama_kelas":"...",
+            "deskripsi_kelas":"...",
+            "mata_pelajaran":"...",
+            "nomor_ruangan":"...",
+            "created_at":"...",
+            "..."
+        }
+    ]
+}
+```
+*Response Failed*
+```json
+
+{
+    "status": 401,
+    "message": "Wrong Credentials"
+}
+
+
+<!-- And Something Else .. -->
+```
+
+#### ListTugasKelas
+
+```http
+  GET /kelas/:idKelas
+```
+
+
+| Header | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Authorization` | `Bearer` | **Required**. [Token Refresh] |
+
+| Params | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Id Kelas` | `Integer` | **Required** |
+
+
+*Response Success*
+```json
+{
+    "status": 200,
+    "data":[
+        {
+            "...."
+        }
+    ]
+}
+```
+*Response Failed*
+```json
+
+{
+    "status": 401,
+    "message": "Wrong Credentials"
+}
+
+
+<!-- And Something Else .. -->
+```
+
+#### DetailTugas
+
+```http
+  GET /kelas/detail/:idTugas
+```
+
+
+| Header | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Authorization` | `Bearer` | **Required**. [Token Refresh] |
+
+| Params | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Id Tugas` | `Integer` | **Required** |
+
+
+*Response Success*
+```json
+{
+    "status": 200,
+    "data":[
+        {
+            "...."
+        }
+    ]
+}
+```
+*Response Failed*
+```json
+
+{
+    "status": 401,
+    "message": "Wrong Credentials"
+}
+
+
+<!-- And Something Else .. -->
+```
+
+#### Join Kelas
+
+```http
+  POST /join
+```
+
+
+| Header | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Authorization` | `Bearer` | **Required**. [Token Refresh] |
+
+| Body (JSON) | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `kode_kelas` | `String` | **Required** |
+
+
+*Response Success*
+```json
+{
+    "status": 200,
+    "kelas":"<ID Kelas>"
+}
+```
+*Response Failed*
+```json
+
+{
+    "status": 401,
+    "message": "Wrong Credentials"
+}
+
+
+<!-- And Something Else .. -->
+```
+
+#### Buat Tugas
+
+```http
+  POST /tugas
+```
+
+
+| Header | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `Authorization` | `Bearer` | **Required**. [Token Refresh] |
+
+| Body (Form-Data) | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `judul` | `String` | **Required** |
+| `deskripsi` | `String` | **Required** |
+| `kode_kelas` | `String` | **Required** |
+| `tenggat_waktu` | `String` | **Required**. [null or not null] |
+| `lampiran` | `file` | **Option** |
+
+
+*Response Success*
+```json
+{
+    "status": 200,
+}
+```
+*Response Failed*
+```json
+
+{
+    "status": 401,
+    "message": "Wrong Credentials"
+}
+
+
+<!-- And Something Else .. -->
+```
