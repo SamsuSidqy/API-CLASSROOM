@@ -21,7 +21,16 @@ export default class Kelas{
 					data.id_user_created
 				]
 			)
-			return result
+
+			const [rows] = await this.connect.execute(
+				`
+				SELECT * ,
+						IF(kelas.id_user_created = ? ,true,false) as teacher
+				FROM kelas WHERE id_kelas =?
+				`,
+				[data.id_user_created,result.insertId]
+			);
+			return rows[0]
 
 		}catch(er){
 			console.log(er)

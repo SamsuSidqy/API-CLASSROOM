@@ -11,6 +11,11 @@ export default async function RequestJoinKelas(data){
                 status: false,
                 message: `Field ${field} is required`
             };
+        }else if (validator.isEmpty(data[field].trim())) {
+            return {
+                status: false,
+                message: `Field ${field} is Cannot Be Empty`
+            };
         }
     }
 

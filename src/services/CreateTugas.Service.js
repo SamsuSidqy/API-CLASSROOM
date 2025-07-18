@@ -13,7 +13,10 @@ export default async function CreateKelasService(data,payload,files){
 	if (result) {
 		const addTugas = await tugas.InsertTugas(data,result,files)
 		if (addTugas) {
-			return true
+			return {
+				status:200,
+				message:"Tugas Berhasil Di Buat"
+			}
 		}
 		throw new RequestError("Failed Create Tugas",400)
 	}else{

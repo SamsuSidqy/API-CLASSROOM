@@ -10,5 +10,5 @@ export default async function KelasTugasControl(req,res,next){
 		return next(new RequestError(validasi.message,400))
 	}
 	const addTugas = await CreateKelasService(req.body,payload,req.files)
-	res.status(200).send("ss")
+	res.status(200).json(addTugas)
 }

@@ -13,7 +13,14 @@ export default async function RequestRegister(data){
                 status: false,
                 message: `Field ${field} is required`
             };
+        }else if (validator.isEmpty(data[field].trim())) {
+            return {
+                status: false,
+                message: `Field ${field} is Cannot Be Empty`
+            };
         }
+
+        
     }
 
 	if (!validator.isEmail(data.email)) {

@@ -9,7 +9,12 @@ export default async function RequestCreateKelas(data){
         if (!data.hasOwnProperty(field)) {
             return {
                 status: false,
-                message: `Field ${field} is required`
+                message: `Field ${field} is required and cannot be empty`
+            };
+        }else if (validator.isEmpty(data[field].trim())) {
+            return {
+                status: false,
+                message: `Field ${field} is Cannot Be Empty`
             };
         }
     }

@@ -89,5 +89,27 @@ export default class PenggunaUsers{
 		}
 	}
 
+	async ListUsersKelas(kode_kelas,users){
+		try{
+			const [results] = await this.connect.query(
+			`SELECT
+				users.username,
+			    users.profile,
+			    users.id_users,
+			    kelas.id_kelas,
+			    kelas.kode_kelas
+			FROM users
+			LEFT JOIN joined_kelas ON joined_kelas.id_users = ?
+			LEFT JOIN kelas ON kelas.id_kelas = joined_kelas.id_kelas OR kelas.id_user_created = ?
+			WHERE kelas.kode_kelas = ?`,
+			[users.id_users,users.id_users,kode_kelas]
+			)
+			return results
+		}catch(err){
+			console.log(err)
+			return []
+		}
+	}
+
 
 }

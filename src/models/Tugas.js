@@ -82,8 +82,8 @@ export default class Tugas{
 	async ListTugas(id_kelas,users){
 		try{
 			const [results] = await this.connect.query(
-			"SELECT tugas.deskripsi, tugas.tenggat_waktu, tugas.judul, tugas.created_at, (kelas.id_user_created = ?) AS teacher FROM tugas LEFT JOIN kelas ON kelas.id_kelas = tugas.id_kelas LEFT JOIN joined_kelas ON joined_kelas.id_kelas = tugas.id_kelas WHERE tugas.id_kelas = ? AND joined_kelas.id_users = ?"
-			,[users.id_users,id_kelas,users.id_users]
+			"SELECT tugas.deskripsi, tugas.tenggat_waktu, tugas.judul, tugas.created_at, (kelas.id_user_created = ?) AS teacher FROM tugas LEFT JOIN kelas ON kelas.id_kelas = tugas.id_kelas LEFT JOIN joined_kelas ON joined_kelas.id_kelas = tugas.id_kelas WHERE tugas.id_kelas = ? AND joined_kelas.id_users = ? OR kelas.id_user_created = ?"
+			,[users.id_users,id_kelas,users.id_users,users.id_users]
 			)
 			return results
 		}catch(er){

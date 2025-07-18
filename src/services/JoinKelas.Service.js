@@ -11,7 +11,7 @@ export default async function JoinKelasService(data,payload){
 		if (checkJoinOrNot) {
 			return{
 				status:200,
-				kelas:checkKelas.kode_kelas
+				kelas:checkKelas
 			}
 		}
 		let main = {}
@@ -21,7 +21,7 @@ export default async function JoinKelasService(data,payload){
 		if (result) {
 			return {
 				status:200,
-				kelas:checkKelas.kode_kelas
+				kelas:checkKelas
 			}
 		}else{
 			throw new RequestError("Gagal Join Kelas")

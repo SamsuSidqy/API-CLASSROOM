@@ -12,7 +12,7 @@ export default async function CreateKelasService(data,payload){
 	if (result) {
 		return {
 			status:200,
-			kelas:result.insertId 
+			kelas:result 
 		}
 	}else{
 		throw new RequestError("Failed Create Kelas",501)
