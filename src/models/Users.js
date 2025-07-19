@@ -97,7 +97,8 @@ export default class PenggunaUsers{
 			    users.profile,
 			    users.id_users,
 			    kelas.id_kelas,
-			    kelas.kode_kelas
+			    kelas.kode_kelas,
+			    IF(kelas.id_user_created = users.id_users,true,false) AS teacher
 			FROM users
 			LEFT JOIN joined_kelas ON joined_kelas.id_users = ?
 			LEFT JOIN kelas ON kelas.id_kelas = joined_kelas.id_kelas OR kelas.id_user_created = ?
