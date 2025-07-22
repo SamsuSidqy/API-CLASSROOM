@@ -10,5 +10,8 @@ export default async function AsigsmentControlCreate(req,res,next){
 		return next(new RequestError(validasi.message,400))
 	}
 	const addTugas = await CreateAssigsmentService(req.body,req.files,payload)
-	res.status(200).send("ss")
+	res.status(200).json({
+		status:200,
+		message:"Successfuly Send Assigsment"
+	})
 }

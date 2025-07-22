@@ -6,6 +6,8 @@ import AsigsmentControlCreate from '../controllers/Asigsment.Control.Create.js'
 import ListKelasControl from '../controllers/Kelas.Control.List.js'
 import ListTugasKelasControl from '../controllers/Kelas.Control.ListTugas.js'
 import DetailTugasControl from '../controllers/Kelas.Control.DetailTugas.js'
+import MyAsigsmentControl from '../controllers/Asigsment.Control.MyAsigsment.js'
+import TeacherAsigsmentControl from '../controllers/Asigsment.Control.TeacherAsigsment.js'
 
 import express from 'express'
 import multer from 'multer'
@@ -27,6 +29,8 @@ routeKelas.get('/kelas',ListKelasControl)
 routeKelas.post("/join",JoinKelasControl)
 routeKelas.get('/tugas/:idKelas',ListTugasKelasControl)
 routeKelas.get('/tugas/detail/:idTugas',DetailTugasControl)
+routeKelas.get('/asigsment/:idKelas',MyAsigsmentControl)
+routeKelas.get('/teacher/:idKelas',TeacherAsigsmentControl)
 routeKelas.post("/tugas",UploadControl.array('lampiran',5),KelasTugasControl)
 routeKelas.post("/announch",UploadControl.array('lampiran',5),AnnounchControleCreate)
 routeKelas.post("/asigsment",UploadControl.array('lampiran',10),AsigsmentControlCreate)
