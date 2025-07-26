@@ -8,8 +8,8 @@ async function StartsApp(){
 	try{
 		await Dbconnection()
 		logging.info("Connect DB MySql Succesfully")
-		app.listen(3000, () => {
-			console.log('Listening Port On 3000')
+		app.listen(3030, () => {
+			console.log('Listening Port On 3030')
 		})
 	}catch(err){
 		if (err.code === 'ER_BAD_DB_ERROR') {

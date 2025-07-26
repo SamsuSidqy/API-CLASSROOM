@@ -14,12 +14,13 @@ const rooms = new Map();
 
 // Struktur: ws => { name, room }
 const clientsInfo = new Map();
-
 function joinRoom(roomName, ws, name) {
+
   if (!rooms.has(roomName)) {
     rooms.set(roomName, new Set());
   }
   rooms.get(roomName).add(ws);
+
   clientsInfo.set(ws, { name, room: roomName });
 
   // Broadcast join info
@@ -28,7 +29,9 @@ function joinRoom(roomName, ws, name) {
 }
 
 function broadcastToRoom(roomName, message, sender = null) {
+
   const clients = rooms.get(roomName);
+
   if (clients) {
     for (const client of clients) {
       if (client.readyState === WebSocket.OPEN && client !== sender) {

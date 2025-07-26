@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -72,6 +72,58 @@
           type: 'message',
           text: message
         }));
+        document.getElementById('message').value = '';
+      }
+    }
+  </script>
+</body>
+</html>
+ -->
+
+
+ <!-- public/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Chat</title>
+</head>
+<body>
+  <h2>Chat Room</h2>
+  <input id="username" placeholder="Username">
+  <input id="room" placeholder="Room">
+  <button onclick="joinChat()">Join</button>
+  <div id="chat"></div>
+  <input id="message" placeholder="Message" onkeydown="if(event.key==='Enter') sendMessage()">
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    let socket;
+
+    function joinChat() {
+      const username = document.getElementById('username').value;
+      const room = document.getElementById('room').value;
+      socket = new WebSocket(`ws://${location.host}`);
+
+      socket.onopen = () => {
+        socket.send(JSON.stringify({ type: 'join', users: username, room }));
+      };
+
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data.type === 'message') {
+          document.getElementById('chat').innerHTML += `<p><strong>${data.sender}:</strong> ${data.text}</p>`;
+        }
+        if (data.type === 'users') {
+          document.getElementById('chat').innerHTML += `<p><em>Users Online:</em> ${data.users.join(', ')}</p>`;
+        }
+      };
+    }
+
+    function sendMessage() {
+      const msg = document.getElementById('message').value;
+      if (socket && msg.trim()) {
+        socket.send(JSON.stringify({ type: 'message', message: msg }));
         document.getElementById('message').value = '';
       }
     }

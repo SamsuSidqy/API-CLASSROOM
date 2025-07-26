@@ -1,17 +1,37 @@
 import express from 'express'
+import {WebSocketServer} from 'ws'
+import http from 'http'
 
 import routeUsers from './routes/Users.Route.js'
 import routeKelas from './routes/Kelas.Route.js'
+import routeUtils from './routes/Utils.Route.js'
+
 import {RequestErrors} from './utils/ErrorsHandler.js'
 
-const app = express();
+import ServiceChattingRun from './services/Chatting.Service.js'
 
-app.use(routeUsers)
-app.use(routeKelas)
+const servers = express();
+const app = http.createServer(servers);
+const wss = new WebSocketServer({ server: app });
 
-app.use((req,res) => {
+wss.on('connection',(ws) => {
+	const service = new ServiceChattingRun(ws)
+	ws.on('message',(msg) => {		
+		service.OnMessage(msg,ws)
+	})
+	ws.on('close',() => {
+		service.OnClose(ws)
+	})
+})
+
+
+servers.use(routeUtils)
+servers.use(routeUsers)
+servers.use(routeKelas)
+
+servers.use((req,res) => {
 	res.status(503)
 })
-app.use(RequestErrors)
+servers.use(RequestErrors)
 
 export default app;

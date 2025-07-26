@@ -11,6 +11,9 @@ import TeacherAsigsmentControl from '../controllers/Asigsment.Control.TeacherAsi
 
 import express from 'express'
 import multer from 'multer'
+import uniqueFilename from 'unique-filename'
+import path from 'path';
+import Authorization from '../middleware/Authorization.js'
 
 const routeKelas = new express.Router()
 const storage = multer.diskStorage({
@@ -18,21 +21,23 @@ const storage = multer.diskStorage({
     cb(null, `assets/`); // folder penyimpanan
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname);
+  	const ext = path.extname(file.originalname);
+  	const uniqueName = path.basename(uniqueFilename(''));
+     cb(null, uniqueName + ext);
   }
 });
 const UploadControl = multer({ storage: storage });
 
 routeKelas.use(express.json())
-routeKelas.post('/kelas',CreateKelas)
-routeKelas.get('/kelas',ListKelasControl)
-routeKelas.post("/join",JoinKelasControl)
-routeKelas.get('/tugas/:idKelas',ListTugasKelasControl)
-routeKelas.get('/tugas/detail/:idTugas',DetailTugasControl)
-routeKelas.get('/asigsment/:idKelas',MyAsigsmentControl)
-routeKelas.get('/teacher/:idKelas',TeacherAsigsmentControl)
-routeKelas.post("/tugas",UploadControl.array('lampiran',5),KelasTugasControl)
-routeKelas.post("/announch",UploadControl.array('lampiran',5),AnnounchControleCreate)
-routeKelas.post("/asigsment",UploadControl.array('lampiran',10),AsigsmentControlCreate)
+routeKelas.post('/kelas',Authorization,CreateKelas)
+routeKelas.get('/kelas',Authorization,ListKelasControl)
+routeKelas.post("/join",Authorization,JoinKelasControl)
+routeKelas.get('/tugas/:idKelas',Authorization,ListTugasKelasControl)
+routeKelas.get('/tugas/detail/:idTugas',Authorization,DetailTugasControl)
+routeKelas.get('/asigsment/:idKelas',Authorization,MyAsigsmentControl)
+routeKelas.get('/teacher/:idKelas',Authorization,TeacherAsigsmentControl)
+routeKelas.post("/tugas",Authorization,UploadControl.array('lampiran',5),KelasTugasControl)
+routeKelas.post("/announch",Authorization,UploadControl.array('lampiran',5),AnnounchControleCreate)
+routeKelas.post("/asigsment",Authorization,UploadControl.array('lampiran',10),AsigsmentControlCreate)
 
 export default routeKelas

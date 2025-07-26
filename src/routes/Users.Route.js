@@ -14,8 +14,7 @@ const routeUsers = new express.Router()
 routeUsers.use(express.json())
 routeUsers.post("/register", RegisterControl)
 routeUsers.post("/login", LoginControl)
-routeUsers.use(Authorization)
-routeUsers.get("/refresh",RefreshTokenControl)
-routeUsers.get("/people/:kodeKelas",ListPeopleKelasControl)
+routeUsers.get("/refresh",Authorization,RefreshTokenControl)
+routeUsers.get("/people/:kodeKelas",Authorization,ListPeopleKelasControl)
 
 export default routeUsers
