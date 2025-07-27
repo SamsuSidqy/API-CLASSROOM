@@ -38,6 +38,6 @@ routeKelas.get('/asigsment/:idKelas',Authorization,MyAsigsmentControl)
 routeKelas.get('/teacher/:idKelas',Authorization,TeacherAsigsmentControl)
 routeKelas.post("/tugas",Authorization,UploadControl.array('lampiran',5),KelasTugasControl)
 routeKelas.post("/announch",Authorization,UploadControl.array('lampiran',5),AnnounchControleCreate)
-routeKelas.post("/asigsment",Authorization,UploadControl.array('lampiran',10),AsigsmentControlCreate)
+routeKelas.post("/asign",Authorization,UploadControl.array('lampiran',5),AsigsmentControlCreate)
 
 export default routeKelas

@@ -5,8 +5,9 @@ import {RequestError} from '../utils/ErrorsHandler.js'
 export default async function CreateAssigsmentService(data,file,users){
 	const tugas = new Assigsment()
 	await tugas.init()
-
+	console.log(data)
 	const checkExpired = await tugas.CheckAssigsmentExpired(data)
+	console.log(checkExpired)
 	if (!checkExpired) { throw new RequestError("the assignment submission period has expired",408)}
 
 	const result = await tugas.InsertAssigsment(data,users,file)

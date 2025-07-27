@@ -32,13 +32,14 @@ export default class Assigsment{
 				[users.id_users,data.kode_kelas,data.id_tugas]
 			)
 			const id_asigsment = asigsment.insertId;
+			const timestamp = WaktuTimestampCreatedat();
 			if (files && files.length > 0) {
 				const lampiranAs = "INSERT INTO lampiran_assigsment (id_assigsment,name_file,created_at,updated_at) VALUES ?"
 				const lampiranData = files.map(file => [
 					id_asigsment,
 					file.filename,
-					WaktuTimestampCreatedat(),
-					WaktuTimestampCreatedat()
+					timestamp,
+					timestamp
 				])
 				await this.connect.query(lampiranAs, [lampiranData])
 			}	
@@ -77,16 +78,17 @@ export default class Assigsment{
 					data.id_tugas,				
 				]
 			)
-
+			const tenggat = new Date(results[0].tenggat_waktu)
 			if(results.length > 0){
-				if (results[0].tenggat_waktu > WaktuTimestampCreatedatSQLCompare()) {
-					return true
+				if (!isNaN(tenggat.getTime())) {					
+					return results[0].tenggat_waktu > WaktuTimestampCreatedatSQLCompare()
 				}else{
-					return false
+					return true
 				}
 			}			
 			return true
 		}catch(er){
+			console.log(er)
 			return false
 		}
 	}

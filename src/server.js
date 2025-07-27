@@ -1,6 +1,8 @@
 import express from 'express'
 import {WebSocketServer} from 'ws'
 import http from 'http'
+import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import routeUsers from './routes/Users.Route.js'
 import routeKelas from './routes/Kelas.Route.js'
@@ -24,7 +26,9 @@ wss.on('connection',(ws) => {
 	})
 })
 
-
+servers.use(cors())
+servers.use(bodyParser.json({ limit: '20mb' }));
+servers.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
 servers.use(routeUtils)
 servers.use(routeUsers)
 servers.use(routeKelas)
