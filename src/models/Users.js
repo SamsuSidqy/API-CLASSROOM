@@ -112,5 +112,30 @@ export default class PenggunaUsers{
 		}
 	}
 
+	async UpdateUser(data,body,files=null){
+		try{
+			if(files){
+				const [result] = await this.connect.query(
+					`UPDATE users SET username = ?, profile = ? WHERE id_users = ?`,
+					[body.username,files,data.id_users]
+				)
+			}else{
+				const [result] = await this.connect.query(
+					`UPDATE users SET username = ? WHERE id_users = ?`,
+					[body.username,data.id_users]
+				)
+			}
+
+			const [results] = await this.connect.query(
+				`SELECT username,email,id_users,refresh_token,profile FROM users WHERE id_users = ?`,
+				[data.id_users]
+			)
+			return results[0] || null
+		}catch(e){
+			console.log(e)
+			return null
+		}
+	}
+
 
 }
