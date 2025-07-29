@@ -33,6 +33,6 @@ routeUsers.post("/register", RegisterControl)
 routeUsers.post("/login", LoginControl)
 routeUsers.get("/refresh",Authorization,RefreshTokenControl)
 routeUsers.get("/people/:kodeKelas",Authorization,ListPeopleKelasControl)
-routeUsers.put("/pepole/update",Authorization,UploadControl.single('profile'),UpdateUsersControl)
+routeUsers.put("/people/update",Authorization,UploadControl.single('profile'),UpdateUsersControl)
 
 export default routeUsers
