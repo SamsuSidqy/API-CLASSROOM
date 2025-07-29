@@ -8,6 +8,7 @@ import ListTugasKelasControl from '../controllers/Kelas.Control.ListTugas.js'
 import DetailTugasControl from '../controllers/Kelas.Control.DetailTugas.js'
 import MyAsigsmentControl from '../controllers/Asigsment.Control.MyAsigsment.js'
 import TeacherAsigsmentControl from '../controllers/Asigsment.Control.TeacherAsigsment.js'
+import UpdateKelasControl from '../controllers/Kelas.Control.Update.js'
 
 import express from 'express'
 import multer from 'multer'
@@ -30,6 +31,7 @@ const UploadControl = multer({ storage: storage });
 
 routeKelas.use(express.json())
 routeKelas.post('/kelas',Authorization,CreateKelas)
+routeKelas.put('/kelas/:kodeKelas',Authorization,UpdateKelasControl)
 routeKelas.get('/kelas',Authorization,ListKelasControl)
 routeKelas.post("/join",Authorization,JoinKelasControl)
 routeKelas.get('/tugas/:idKelas',Authorization,ListTugasKelasControl)

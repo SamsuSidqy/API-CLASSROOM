@@ -99,4 +99,31 @@ export default class Kelas{
 			return []
 		}
 	}
+
+	async CheckKelasAuthor(users,kode){
+		try{
+			const [result] = await this.connect.query(
+			"SELECT * FROM kelas WHERE id_user_created = ? AND kode_kelas = ?",
+			[users.id_users,kode]
+			)
+			return result.length > 0
+		}catch(e){
+			console.log(e)
+			return false
+		}
+	}
+
+	async UpdateKelasAuthor(data,kode,user){
+		try{
+			const [result] = await this.connect.query(
+			"UPDATE kelas SET deskripsi_kelas = ?, mata_pelajaran = ?, nomor_ruangan = ? WHERE id_user_created = ? AND kode_kelas = ?",
+			[data.deskripsi_kelas,data.mata_pelajaran,data.nomor_ruangan,user.id_users,kode]
+			)
+			return true
+		}catch(e){
+			console.log(e)
+			return false
+		}
+	}
+
 }
