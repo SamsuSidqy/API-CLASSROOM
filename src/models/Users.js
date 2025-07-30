@@ -1,5 +1,5 @@
 import Dbconnection from '../config/database.js';
-
+import logging from '../config/logging.js'
 import bcrypt  from 'bcrypt'
 import {WaktuTimestampCreatedat} from '../utils/Times.js'
 
@@ -34,7 +34,7 @@ export default class PenggunaUsers{
 			)
 			return true;
 		}catch(err){
-			console.log(err)
+			logging.error(err.message)
 			return false;
 		}
 	}
@@ -50,7 +50,7 @@ export default class PenggunaUsers{
 			)			
 			return result.length > 0;
 		}catch(err){
-			console.log(err)
+			logging.error(err.message)
 			return false
 		}
 	}
@@ -62,7 +62,7 @@ export default class PenggunaUsers{
 			)
 			return result[0]
 		}catch(err){
-			console.log(err)
+			logging.error(err.message)
 			return null
 		}
 	}
@@ -84,7 +84,7 @@ export default class PenggunaUsers{
 			return true
 		}catch(err){
 			await this.connect.rollback()
-			console.log(err)
+			logging.error(err.message)
 			return false
 		}
 	}
@@ -108,7 +108,7 @@ export default class PenggunaUsers{
 			)
 			return results
 		}catch(err){
-			console.log(err)
+			logging.error(err.message)
 			return []
 		}
 	}
@@ -133,7 +133,7 @@ export default class PenggunaUsers{
 			)
 			return results[0] || null
 		}catch(e){
-			console.log(e)
+			logging.error(err.message)
 			return null
 		}
 	}

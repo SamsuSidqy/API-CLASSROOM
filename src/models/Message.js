@@ -1,5 +1,6 @@
 import Dbconnection from '../config/database.js';
 import {WaktuTimestampCreatedat} from '../utils/Times.js'
+import logging from '../config/logging.js'
 
 export default class Messages{
 	async init() {
@@ -16,7 +17,7 @@ export default class Messages{
 			)
 			return results
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return er
 		}
 	}
@@ -51,7 +52,7 @@ export default class Messages{
 			)
 			return results
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return null
 		}
 	}

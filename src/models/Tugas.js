@@ -1,5 +1,6 @@
 import Dbconnection from '../config/database.js';
 import {WaktuTimestampCreatedat} from '../utils/Times.js'
+import logging from '../config/logging.js'
 
 export default class Tugas{
 	async init() {
@@ -16,7 +17,7 @@ export default class Tugas{
 			)
 			return results.length > 0
 		}catch(e){
-			console.log(e)
+			logging.error(e.message)
 			return false
 		}
 	}
@@ -45,7 +46,7 @@ export default class Tugas{
 			await this.connect.commit()
 			return true
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			await this.connect.rollback();
 			return false
 		}
@@ -73,7 +74,7 @@ export default class Tugas{
 			await this.connect.commit()
 			return true
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			await this.connect.rollback();
 			return false
 		}
@@ -87,7 +88,7 @@ export default class Tugas{
 			)
 			return results
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return []
 		}
 	}
@@ -116,7 +117,7 @@ export default class Tugas{
 			)
 			return results[0]
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return false
 		}
 	}

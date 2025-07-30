@@ -1,6 +1,6 @@
 import Dbconnection from '../config/database.js';
 import {WaktuTimestampCreatedat, WaktuTimestampCreatedatSQLCompare} from '../utils/Times.js'
-
+import logging from '../config/logging.js'
 export default class Assigsment{
 	async init() {
 		// Database
@@ -18,6 +18,7 @@ export default class Assigsment{
 			)
 			return results.length > 0
 		}catch(er){
+			logging.error(er.message)
 			return false
 		}
 	}
@@ -47,7 +48,7 @@ export default class Assigsment{
 			await this.connect.commit()
 			return true
 		}catch(e){
-			console.log(e)
+			logging.error(er.message)
 			await this.connect.rollback();
 			return false
 		}
@@ -65,7 +66,7 @@ export default class Assigsment{
 			)
 			return results.length > 0
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return false
 		}
 	}
@@ -88,7 +89,7 @@ export default class Assigsment{
 			}			
 			return true
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return false
 		}
 	}
@@ -107,6 +108,7 @@ export default class Assigsment{
 			)
 			return results
 		}catch(er){
+			logging.error(er.message)
 			return false
 		}
 	}
@@ -137,6 +139,7 @@ export default class Assigsment{
 			)		
 			return results
 		}catch(er){
+			logging.error(er.message)
 			return false
 		}
 	}

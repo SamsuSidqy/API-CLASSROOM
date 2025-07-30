@@ -1,6 +1,6 @@
 import Dbconnection from '../config/database.js';
 import {WaktuTimestampCreatedat} from '../utils/Times.js'
-
+import logging from '../config/logging.js'
 
 export default class Kelas{
 	async init() {
@@ -33,7 +33,7 @@ export default class Kelas{
 			return rows[0]
 
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return false;
 		}
 	}
@@ -47,7 +47,7 @@ export default class Kelas{
 			)
 			return result[0]
 		}catch(e){
-			console.log(e)
+			logging.error(e.message)
 			return null;
 		}
 	}
@@ -65,7 +65,7 @@ export default class Kelas{
 			const bol = result[0] || result2[0]
 			return bol
 		}catch(e){
-			console.log(e)
+			logging.error(e.message)
 			return null;
 		}
 	}
@@ -82,7 +82,7 @@ export default class Kelas{
 			)
 			return true
 		}catch(e){
-			console.log(e)
+			logging.error(e.message)
 			return null
 		}
 	}
@@ -95,7 +95,7 @@ export default class Kelas{
 			)
 			return results
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return []
 		}
 	}
@@ -108,7 +108,7 @@ export default class Kelas{
 			)
 			return result.length > 0
 		}catch(e){
-			console.log(e)
+			logging.error(e.message)
 			return false
 		}
 	}
@@ -121,7 +121,7 @@ export default class Kelas{
 			)
 			return true
 		}catch(e){
-			console.log(e)
+			logging.error(e.message)
 			return false
 		}
 	}
@@ -145,7 +145,7 @@ export default class Kelas{
 			)
 			return result.length > 0 ? result[0] : false
 		}catch(er){
-			console.log(er)
+			logging.error(er.message)
 			return false
 		}
 	}
