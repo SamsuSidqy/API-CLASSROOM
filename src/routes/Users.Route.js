@@ -7,6 +7,7 @@ import {
 
 import ListPeopleKelasControl from '../controllers/Kelas.Control.ListPeople.js'
 import UpdateUsersControl from '../controllers/Users.Control.Update.js'
+import ControlListPesan from '../controllers/Message.Control.List.js'
 
 import Authorization from '../middleware/Authorization.js'
 import multer from 'multer'
@@ -34,5 +35,6 @@ routeUsers.post("/login", LoginControl)
 routeUsers.get("/refresh",Authorization,RefreshTokenControl)
 routeUsers.get("/people/:kodeKelas",Authorization,ListPeopleKelasControl)
 routeUsers.put("/people/update",Authorization,UploadControl.single('profile'),UpdateUsersControl)
+routeUsers.get("/pesan/:kodeRoom",Authorization,ControlListPesan)
 
 export default routeUsers

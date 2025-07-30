@@ -103,10 +103,15 @@
     function joinChat() {
       const username = document.getElementById('username').value;
       const room = document.getElementById('room').value;
-      socket = new WebSocket(`ws://${location.host}`);
+      const user = {
+        id_users:43,
+        username,
+        profile:null
+      }
+      socket = new WebSocket(`ws://192.168.1.3:3030`);
 
       socket.onopen = () => {
-        socket.send(JSON.stringify({ type: 'join', users: username, room }));
+        socket.send(JSON.stringify({ type: 'join', users: user, room }));
       };
 
       socket.onmessage = (event) => {

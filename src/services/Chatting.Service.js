@@ -1,5 +1,6 @@
 // Service.js
 import WebSocket from 'ws';
+import Messages from '../models/Message.js'
 
 export default class ServiceChattingRun {
   static rooms = new Map();        
@@ -40,9 +41,11 @@ export default class ServiceChattingRun {
     if (!ServiceChattingRun.rooms.has(room)) {
       ServiceChattingRun.rooms.set(room, new Set());
     }
+    if (!ServiceChattingRun.clientInfo.has(this.ws)) {
+      ServiceChattingRun.clientInfo.set(this.ws, { user, room });
+    }
 
     ServiceChattingRun.rooms.get(room).add(this.ws);
-    ServiceChattingRun.clientInfo.set(this.ws, { user, room });
 
     this.OnUsersOnline(room);
   }
@@ -51,7 +54,6 @@ export default class ServiceChattingRun {
     let data;
     try {
       data = JSON.parse(message);
-      console.log(data)
     } catch (err) {
       console.error('Invalid JSON received:', message);
       return;
@@ -65,6 +67,20 @@ export default class ServiceChattingRun {
       const info = ServiceChattingRun.clientInfo.get(ws);
       if (info?.room) {
         this.MessageRoom(info.room, info.user, data.message, ws);
+        const message = new Messages();
+        message.init()
+          .then(() => {
+            const dataSave = {
+              kode_room: info.room,            
+              users: info.user.id_users,
+              message: data.message,
+            };
+            
+            return message.SavePesan(dataSave);
+          })
+          .catch(err => {
+            console.log('Error saving message:', err);
+          });
       }
     }
   }

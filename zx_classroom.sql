@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2025 at 10:07 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- Waktu pembuatan: 30 Jul 2025 pada 14.34
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `assigsment`
+-- Struktur dari tabel `assigsment`
 --
 
 CREATE TABLE `assigsment` (
@@ -39,7 +39,7 @@ CREATE TABLE `assigsment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `joined_kelas`
+-- Struktur dari tabel `joined_kelas`
 --
 
 CREATE TABLE `joined_kelas` (
@@ -53,7 +53,7 @@ CREATE TABLE `joined_kelas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kelas`
+-- Struktur dari tabel `kelas`
 --
 
 CREATE TABLE `kelas` (
@@ -70,7 +70,7 @@ CREATE TABLE `kelas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lampiran_assigsment`
+-- Struktur dari tabel `lampiran_assigsment`
 --
 
 CREATE TABLE `lampiran_assigsment` (
@@ -84,7 +84,7 @@ CREATE TABLE `lampiran_assigsment` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lampiran_tugas`
+-- Struktur dari tabel `lampiran_tugas`
 --
 
 CREATE TABLE `lampiran_tugas` (
@@ -98,11 +98,11 @@ CREATE TABLE `lampiran_tugas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message_chat`
+-- Struktur dari tabel `message_chat`
 --
 
 CREATE TABLE `message_chat` (
-  `kode_room` int(11) NOT NULL,
+  `kode_room` text NOT NULL,
   `users` int(11) NOT NULL,
   `message` text NOT NULL,
   `id_chat` int(11) NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE `message_chat` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tugas`
+-- Struktur dari tabel `tugas`
 --
 
 CREATE TABLE `tugas` (
@@ -128,7 +128,7 @@ CREATE TABLE `tugas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -146,90 +146,90 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `assigsment`
+-- Indeks untuk tabel `assigsment`
 --
 ALTER TABLE `assigsment`
   ADD PRIMARY KEY (`id_assigsment`);
 
 --
--- Indexes for table `joined_kelas`
+-- Indeks untuk tabel `joined_kelas`
 --
 ALTER TABLE `joined_kelas`
   ADD PRIMARY KEY (`id_join`);
 
 --
--- Indexes for table `kelas`
+-- Indeks untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id_kelas`),
   ADD UNIQUE KEY `kode_kelas` (`kode_kelas`);
 
 --
--- Indexes for table `lampiran_assigsment`
+-- Indeks untuk tabel `lampiran_assigsment`
 --
 ALTER TABLE `lampiran_assigsment`
   ADD PRIMARY KEY (`id_lampiran_assigsment`);
 
 --
--- Indexes for table `lampiran_tugas`
+-- Indeks untuk tabel `lampiran_tugas`
 --
 ALTER TABLE `lampiran_tugas`
   ADD PRIMARY KEY (`id_lampiran_tugas`);
 
 --
--- Indexes for table `tugas`
+-- Indeks untuk tabel `tugas`
 --
 ALTER TABLE `tugas`
   ADD PRIMARY KEY (`id_tugas`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id_users`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `assigsment`
+-- AUTO_INCREMENT untuk tabel `assigsment`
 --
 ALTER TABLE `assigsment`
   MODIFY `id_assigsment` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `joined_kelas`
+-- AUTO_INCREMENT untuk tabel `joined_kelas`
 --
 ALTER TABLE `joined_kelas`
   MODIFY `id_join` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kelas`
+-- AUTO_INCREMENT untuk tabel `kelas`
 --
 ALTER TABLE `kelas`
   MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `lampiran_assigsment`
+-- AUTO_INCREMENT untuk tabel `lampiran_assigsment`
 --
 ALTER TABLE `lampiran_assigsment`
   MODIFY `id_lampiran_assigsment` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `lampiran_tugas`
+-- AUTO_INCREMENT untuk tabel `lampiran_tugas`
 --
 ALTER TABLE `lampiran_tugas`
   MODIFY `id_lampiran_tugas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tugas`
+-- AUTO_INCREMENT untuk tabel `tugas`
 --
 ALTER TABLE `tugas`
   MODIFY `id_tugas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT;
