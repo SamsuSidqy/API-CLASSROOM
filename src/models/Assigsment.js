@@ -79,8 +79,8 @@ export default class Assigsment{
 					data.id_tugas,				
 				]
 			)
-			const tenggat = new Date(results[0].tenggat_waktu)
 			if(results.length > 0){
+				const tenggat = new Date(results[0].tenggat_waktu)
 				if (!isNaN(tenggat.getTime())) {					
 					return results[0].tenggat_waktu > WaktuTimestampCreatedatSQLCompare()
 				}else{
@@ -121,6 +121,7 @@ export default class Assigsment{
 				    users.username,
 				    users.profile,
 				    GROUP_CONCAT(lampiran_assigsment.name_file SEPARATOR ",") AS lampiran,
+				    assigsment.id_assigsment,
 				    assigsment.id_tugas,
 				    assigsment.nilai
 				FROM users
@@ -138,6 +139,20 @@ export default class Assigsment{
 				`,[id_tugas,users.id_users]
 			)		
 			return results
+		}catch(er){
+			logging.error(er.message)
+			return false
+		}
+	}
+
+
+	async NilaiAsigsment(id,nilai){
+		try{
+			const [results] = await this.connect.query(
+				`UPDATE assigsment SET nilai = ? WHERE id_assigsment = ?`,
+				[nilai,id]
+			)
+			return results.affectedRows > 0
 		}catch(er){
 			logging.error(er.message)
 			return false

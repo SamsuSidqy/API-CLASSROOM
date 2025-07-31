@@ -10,6 +10,7 @@ import MyAsigsmentControl from '../controllers/Asigsment.Control.MyAsigsment.js'
 import TeacherAsigsmentControl from '../controllers/Asigsment.Control.TeacherAsigsment.js'
 import UpdateKelasControl from '../controllers/Kelas.Control.Update.js'
 import DetailKelasControl from '../controllers/Kelas.Control.Detail.js'
+import NilaiSiswaControl from '../controllers/Asigsment.Control.Nilai.js'
 
 import express from 'express'
 import multer from 'multer'
@@ -40,6 +41,7 @@ routeKelas.get('/tugas/:idKelas',Authorization,ListTugasKelasControl)
 routeKelas.get('/tugas/detail/:idTugas',Authorization,DetailTugasControl)
 routeKelas.get('/asigsment/:idKelas',Authorization,MyAsigsmentControl)
 routeKelas.get('/teacher/:idKelas',Authorization,TeacherAsigsmentControl)
+routeKelas.put('/teacher/nilai',Authorization,NilaiSiswaControl)
 routeKelas.post("/tugas",Authorization,UploadControl.array('lampiran',5),KelasTugasControl)
 routeKelas.post("/announch",Authorization,UploadControl.array('lampiran',5),AnnounchControleCreate)
 routeKelas.post("/asign",Authorization,UploadControl.array('lampiran',5),AsigsmentControlCreate)
