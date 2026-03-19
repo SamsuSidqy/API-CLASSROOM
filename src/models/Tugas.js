@@ -83,7 +83,12 @@ export default class Tugas{
 	async ListTugas(id_kelas,users){
 		try{
 			const [results] = await this.connect.query(
-			"SELECT DISTINCT  tugas.deskripsi, tugas.type, tugas.id_tugas, tugas.tenggat_waktu, tugas.judul, tugas.created_at, (kelas.id_user_created = ?) AS teacher FROM tugas LEFT JOIN kelas ON kelas.id_kelas = tugas.id_kelas LEFT JOIN joined_kelas ON joined_kelas.id_kelas = tugas.id_kelas WHERE tugas.id_kelas = ? AND ( joined_kelas.id_users = ? OR kelas.id_user_created = ? ) ORDER BY tugas.id_tugas DESC;"
+			`SELECT DISTINCT COUNT(lampiran_tugas.id_lampiran_tugas) AS jumlah_lampiran, tugas.deskripsi, tugas.type, tugas.id_tugas, tugas.tenggat_waktu, tugas.judul, tugas.created_at, (kelas.id_user_created = ?) AS teacher FROM tugas LEFT JOIN kelas ON kelas.id_kelas = tugas.id_kelas LEFT JOIN joined_kelas ON joined_kelas.id_kelas = tugas.id_kelas 
+			LEFT JOIN
+				lampiran_tugas ON lampiran_tugas.id_tugas = tugas.id_tugas
+			WHERE tugas.id_kelas = ? AND ( joined_kelas.id_users = ? OR kelas.id_user_created = ? ) 			
+			GROUP BY tugas.id_tugas
+			ORDER BY tugas.id_tugas DESC;`
 			,[users.id_users,id_kelas,users.id_users,users.id_users]
 			)
 			return results

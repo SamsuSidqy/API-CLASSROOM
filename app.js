@@ -20,6 +20,8 @@ async function StartsApp(){
 	      	logging.error('Connection was closed unexpectedly');
 	    }else if(err.code === 'ECONNREFUSED'){
 	      	logging.error('Mysql Is Not Running');
+	    }else{
+	    	logging.error(err.message)
 	    }
 	}
 }
