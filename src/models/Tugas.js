@@ -57,7 +57,7 @@ export default class Tugas{
 			await this.connect.beginTransaction()
 			const [result] = await this.connect.execute(
 				"INSERT INTO tugas (deskripsi,id_kelas,judul,type) VALUES(?,?,?,?)",
-				[data.deskripsi,,kelas.id_kelas,data.judul,'Pengumuman']
+				[data.deskripsi,kelas.id_kelas,data.judul,'Pengumuman']
 			)
 			const id_tugas = result.insertId;
 
