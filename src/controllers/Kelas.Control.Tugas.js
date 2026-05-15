@@ -5,6 +5,7 @@ import CreateTugasKelasService from '../services/CreateTugas.Service.js'
 
 export default async function KelasTugasControl(req,res,next){
 	const payload = await GetDataToken(req)	
+	console.log(req.body)
 	const validasi = await RequestCreateTugas(req.body,req.files,payload)
 	if (!validasi.status) {
 		return next(new RequestError(validasi.message,400))

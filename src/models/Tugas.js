@@ -28,8 +28,8 @@ export default class Tugas{
 		try{
 			await this.connect.beginTransaction()
 			const [result] = await this.connect.execute(
-				"INSERT INTO tugas (deskripsi,tenggat_waktu,id_kelas,judul,type) VALUES(?,?,?,?,?)",
-				[data.deskripsi,data.tenggat_waktu,kelas.id_kelas,data.judul,'Tugas']
+				"INSERT INTO tugas (deskripsi,tenggat_waktu,id_kelas,judul,type,jenis_tugas,tingkat_kesulitan,tempat_pengerjaan,batasan_nilai) VALUES(?,?,?,?,?,?,?,?,?)",
+				[data.deskripsi,data.tenggat_waktu,kelas.id_kelas,data.judul,'Tugas',data.jenis_tugas,data.tingkat_kesulitan,data.tempat_pengerjaan,data.batasan_nilai]
 			)
 			const id_tugas = result.insertId;
 
@@ -83,7 +83,10 @@ export default class Tugas{
 	async ListTugas(id_kelas,users){
 		try{
 			const [results] = await this.connect.query(
-			`SELECT DISTINCT COUNT(lampiran_tugas.id_lampiran_tugas) AS jumlah_lampiran, tugas.deskripsi, tugas.type, tugas.id_tugas, tugas.tenggat_waktu, tugas.judul, tugas.created_at, (kelas.id_user_created = ?) AS teacher FROM tugas LEFT JOIN kelas ON kelas.id_kelas = tugas.id_kelas LEFT JOIN joined_kelas ON joined_kelas.id_kelas = tugas.id_kelas 
+			`SELECT DISTINCT COUNT(lampiran_tugas.id_lampiran_tugas) AS jumlah_lampiran, tugas.deskripsi,tugas.jenis_tugas,
+			tugas.tingkat_kesulitan,
+			tugas.tempat_pengerjaan,
+			tugas.batasan_nilai ,tugas.type, tugas.id_tugas, tugas.tenggat_waktu, tugas.judul, tugas.created_at, (kelas.id_user_created = ?) AS teacher FROM tugas LEFT JOIN kelas ON kelas.id_kelas = tugas.id_kelas LEFT JOIN joined_kelas ON joined_kelas.id_kelas = tugas.id_kelas 
 			LEFT JOIN
 				lampiran_tugas ON lampiran_tugas.id_tugas = tugas.id_tugas
 			WHERE tugas.id_kelas = ? AND ( joined_kelas.id_users = ? OR kelas.id_user_created = ? ) 			
@@ -109,6 +112,11 @@ export default class Tugas{
 			    tugas.id_kelas,
 			    tugas.judul,
 			    tugas.created_at,
+				tugas.tenggat_waktu,
+				tugas.jenis_tugas,
+				tugas.tingkat_kesulitan,
+				tugas.tempat_pengerjaan,
+				tugas.batasan_nilai,
 			    GROUP_CONCAT(lampiran_tugas.name_file SEPARATOR ",") AS lampiran
 			FROM tugas
 			LEFT JOIN lampiran_tugas ON lampiran_tugas.id_tugas = tugas.id_tugas

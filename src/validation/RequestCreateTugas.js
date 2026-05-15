@@ -4,7 +4,8 @@ import Tugas from '../models/Tugas.js'
 export default async function RequestCreateTugas(data,file,users){
 	let message = {}
 	let status = false
-	let Fields = ['judul','deskripsi','kode_kelas','tenggat_waktu']
+	let Fields = ['judul','deskripsi','kode_kelas','tenggat_waktu','jenis_tugas',
+        'tingkat_kesulitan','tempat_pengerjaan','batasan_nilai']
     const tugas = new Tugas()
     await tugas.init()
     const newData = Object.assign({}, data)

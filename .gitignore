@@ -2,3 +2,4 @@ node_modules/
 logs/
 .env
 yarn.lock
+assets/
